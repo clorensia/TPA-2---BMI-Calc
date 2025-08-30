@@ -5,65 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BMI Calculator</title>
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="main-container">
-
-    <!-- Kartu Kalkulator BMI -->
-    <div class="card" style="animation-delay: 0.1s;">
-        <h1 class="card-title">Periksa BMI Anda</h1>
-        <p class="card-subtitle">Masukkan berat dan tinggi badan Anda di bawah ini untuk memeriksa hasil BMI Anda.</p>
-
-        <div style="margin-bottom: 16px;">
-            <label for="weight" class="input-label">Masukkan berat badan Anda (KG)</label>
-            <input type="number" id="weight" class="input-box" placeholder="60">
-            <div id="weight-error" class="error-message hidden">Silakan isi dengan angka minimal 2 digit dan tidak boleh 0.</div>
-        </div>
+ <main>
         
-        <div style="margin-bottom: 24px;">
-            <label for="height" class="input-label">Dan tinggi badan Anda (CM)</label>
-            <input type="number" id="height" class="input-box" placeholder="167">
-            <div id="height-error" class="error-message hidden">Silakan isi dengan angka minimal 3 digit dan tidak boleh 0.</div>
+        <div class="panel">
+            <h1 class="title">Kalkulator BMI</h1>
+            <p class="subtitle">Masukkan berat dan tinggi badan Anda untuk mengetahui status gizi Anda.</p>
+
+            <div class="form-section">
+                <div class="input-group">
+                    <label for="weight" class="input-label">Berat Badan (KG)</label>
+                    <input type="number" id="weight" class="input-field" placeholder="Contoh: 65">
+                    <div id="weight-error" class="error-message hidden">Silakan isi dengan angka minimal 2 digit dan tidak boleh 0.</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="height" class="input-label">Tinggi Badan (CM)</label>
+                    <input type="number" id="height" class="input-field" placeholder="Contoh: 170">
+                    <div id="height-error" class="error-message hidden">Silakan isi dengan angka minimal 3 digit dan tidak boleh 0.</div>
+                </div>
+
+                <button id="calculate-btn" class="btn-calculate" disabled>Hitung BMI</button>
+            </div>
         </div>
 
-        <button id="calculate-btn" class="button">Hitung BMI</button>
-        
-    </div>
+        <div class="panel-info">
+            <div>
+                <h2 class="section-title">Kategori Indeks Massa Tubuh</h2>
+                <ul id="category-list" class="category-list">
+                    <li id="category-underweight" class="category-item">
+                        <span class="font-medium">Kurus</span>
+                        <span class="badge bg-red-badge">&lt; 18.5</span>
+                    </li>
+                    <li id="category-normal" class="category-item">
+                        <span class="font-medium">Normal</span>
+                        <span class="badge bg-green-badge">18.5 - 24.9</span>
+                    </li>
+                    <li id="category-overweight" class="category-item">
+                        <span class="font-medium">Gemuk</span>
+                        <span class="badge bg-yellow-badge">25 - 29.9</span>
+                    </li>
+                    <li id="category-obesity" class="category-item">
+                        <span class="font-medium">Obesitas</span>
+                        <span class="badge bg-purple-badge">&ge; 30</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div id="bmi-result-summary" class="result-summary hidden">
+                <hr class="result-divider">
+                <p class="result-text">Hasil BMI Anda</p>
+                <p id="bmi-value" class="result-value"></p>
+                <p id="bmi-category" class="result-category"></p>
+            </div>
+        </div>
 
-    <!-- Kartu Kategori BMI dan Hasil -->
-    <div class="card category-card" style="animation-delay: 0.2s;">
-        <div>
-            <h2 class="card-title" style="font-size: 24px; margin-bottom: 16px;">Kategori BMI</h2>
-            <ul class="category-list">
-                <li class="category-item" id="category-underweight">
-                    <span>Kurus (Underweight)</span>
-                    <span class="badge bg-red-badge"> < 18.5 </span>
-                </li>
-                <li class="category-item" id="category-normal">
-                    <span>Normal</span>
-                    <span class="badge bg-green-badge"> 18.5 - 24.9 </span>
-                </li>
-                <li class="category-item" id="category-overweight">
-                    <span>Gemuk (Overweight)</span>
-                    <span class="badge bg-yellow-badge"> 25 - 29.9 </span>
-                </li>
-                <li class="category-item" id="category-obesity">
-                    <span>Obesitas (Obesity)</span>
-                    <span class="badge bg-pink-badge"> 30 atau lebih </span>
-                </li>
-            </ul>
-        </div>
-        
-        <!-- hasil BMI -->
-        <div id="bmi-result-summary" class="result-summary hidden">
-            <hr class="divider">
-            <p style="text-align: center;">
-                BMI Anda adalah
-                <span id="bmi-value" class="result-value"></span>
-                <span id="bmi-category" style="font-size: 20px; font-weight: 600;"></span>
-            </p>
-        </div>
-    </div>
-</div>
+    </main>
 </body>
 </html>

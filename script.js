@@ -29,3 +29,33 @@ calculateBtn.addEventListener('click', () => {
     }
 
 })
+
+// Fungsi untuk memvalidasi input dan mengaktifkan/menonaktifkan tombol
+const validateAndEnableButton = () => {
+    const weightValue = weightInput.value;
+    const heightValue = heightInput.value;
+
+    // Periksa apakah input berat badan valid (minimal 2 digit dan bukan 0)
+    const isWeightValid = weightValue.length >= 2 && parseFloat(weightValue) > 0;
+    // Periksa apakah input tinggi badan valid (minimal 3 digit dan bukan 0)
+    const isHeightValid = heightValue.length >= 3 && parseFloat(heightValue) > 0;
+    
+    // Tampilkan atau sembunyikan pesan kesalahan berat badan
+    weightError.classList.toggle('hidden', isWeightValid);
+    // Tampilkan atau sembunyikan pesan kesalahan tinggi badan
+    heightError.classList.toggle('hidden', isHeightValid);
+
+    // Jika kedua input valid, aktifkan tombol
+    if (isWeightValid && isHeightValid) {
+        calculateBtn.disabled = false;
+    } else {
+        // Jika tidak, nonaktifkan tombol dan sembunyikan hasil
+        calculateBtn.disabled = true;
+        bmiResultSummary.classList.add('hidden');
+        categoryItems.forEach(item => item.classList.remove('active-category'));
+    }
+};
+
+// Tambahkan event listener 'input' ke kedua input untuk validasi real-time
+weightInput.addEventListener('input', validateAndEnableButton);
+heightInput.addEventListener('input', validateAndEnableButton);
