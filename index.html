@@ -7,7 +7,7 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="main-container">
+<div class="main-container">
 
     <!-- Kartu Kalkulator BMI -->
     <div class="card" style="animation-delay: 0.1s;">
@@ -53,6 +53,17 @@
                 </li>
             </ul>
         </div>
-
+        
+        <!-- Bagian ini akan menampilkan hasil BMI -->
+        <div id="bmi-result-summary" class="result-summary hidden">
+            <hr class="divider">
+            <p style="text-align: center;">
+                BMI Anda adalah
+                <span id="bmi-value" class="result-value"></span>
+                <span id="bmi-category" style="font-size: 20px; font-weight: 600;"></span>
+            </p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
