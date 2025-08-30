@@ -1,61 +1,78 @@
-const calculateBtn = document.getElementById('calculate-btn');
-const weightInput = document.getElementById('weight');
-const heightInput = document.getElementById('height');
+    const calculateBtn = document.getElementById('calculate-btn');
+    const weightInput = document.getElementById('weight');
+    const heightInput = document.getElementById('height');
+    const bmiResultSummary = document.getElementById('bmi-result-summary');
+    const bmiValue = document.getElementById('bmi-value');
+    const bmiCategory = document.getElementById('bmi-category');
+    const weightError = document.getElementById('weight-error');
+    const heightError = document.getElementById('height-error');
+    const categoryList = document.getElementById('category-list');
 
-calculateBtn.addEventListener('click', () => {
-    // Ambil nilai berat dan tinggi dari input
-    const weight = parseFloat(weightInput.value);
-    const height = parseFloat(heightInput.value);
-    const bmi = weight / Math.pow(height / 100, 2);
-    const roundedBmi = bmi.toFixed(1); 
+    const validateAndEnableButton = () => {
+        const weightValue = weightInput.value;
+        const heightValue = heightInput.value;
 
-    let category, color, categoryId;
-    if (bmi < 18.5) {
-        category = 'Kurus';
-        color = '#c2185b';
-        categoryId = 'category-underweight';
-    } else if (bmi >= 18.5 && bmi <= 24.9) {
-        category = 'Normal';
-        color = '#2e7d32';
-        categoryId = 'category-normal';
-    } else if (bmi >= 25 && bmi <= 29.9) {
-        category = 'Gemuk';
-        color = '#f9a825';
-        categoryId = 'category-overweight';
-    } else {
-        category = 'Obesitas';
-        color = '#8e24aa';
-        categoryId = 'category-obesity';
-    }
+        const isWeightValid = weightValue.length >= 2 && parseFloat(weightValue) > 0;
+        const isHeightValid = heightValue.length >= 3 && parseFloat(heightValue) > 0;
+        
+        weightError.classList.toggle('hidden', isWeightValid || weightValue.length === 0);
+        heightError.classList.toggle('hidden', isHeightValid || heightValue.length === 0);
 
-})
+        if (isWeightValid && isHeightValid) {
+            calculateBtn.disabled = false;
+        } else {
+            calculateBtn.disabled = true;
+            bmiResultSummary.classList.add('hidden');
+            bmiResultSummary.classList.remove('card-enter');
+            Array.from(categoryList.children).forEach(item => {
+                item.classList.remove('ring-2', 'ring-blue-500', 'scale-105');
+            });
+        }
+    };
 
-// Fungsi untuk memvalidasi input dan mengaktifkan/menonaktifkan tombol
-const validateAndEnableButton = () => {
-    const weightValue = weightInput.value;
-    const heightValue = heightInput.value;
+    weightInput.addEventListener('input', validateAndEnableButton);
+    heightInput.addEventListener('input', validateAndEnableButton);
 
-    // Periksa apakah input berat badan valid (minimal 2 digit dan bukan 0)
-    const isWeightValid = weightValue.length >= 2 && parseFloat(weightValue) > 0;
-    // Periksa apakah input tinggi badan valid (minimal 3 digit dan bukan 0)
-    const isHeightValid = heightValue.length >= 3 && parseFloat(heightValue) > 0;
-    
-    // Tampilkan atau sembunyikan pesan kesalahan berat badan
-    weightError.classList.toggle('hidden', isWeightValid);
-    // Tampilkan atau sembunyikan pesan kesalahan tinggi badan
-    heightError.classList.toggle('hidden', isHeightValid);
+    calculateBtn.addEventListener('click', () => {
+        const weight = parseFloat(weightInput.value);
+        const height = parseFloat(heightInput.value);
+        
+        const bmi = weight / Math.pow(height / 100, 2);
+        const roundedBmi = bmi.toFixed(1);
 
-    // Jika kedua input valid, aktifkan tombol
-    if (isWeightValid && isHeightValid) {
-        calculateBtn.disabled = false;
-    } else {
-        // Jika tidak, nonaktifkan tombol dan sembunyikan hasil
-        calculateBtn.disabled = true;
-        bmiResultSummary.classList.add('hidden');
-        categoryItems.forEach(item => item.classList.remove('active-category'));
-    }
-};
+        let category, colorClass, categoryId;
 
-// Tambahkan event listener 'input' ke kedua input untuk validasi real-time
-weightInput.addEventListener('input', validateAndEnableButton);
-heightInput.addEventListener('input', validateAndEnableButton);
+        if (bmi < 18.5) {
+            category = 'Kurus';
+            colorClass = 'text-red-600';
+            categoryId = 'category-underweight';
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            category = 'Normal';
+            colorClass = 'text-green-600';
+            categoryId = 'category-normal';
+        } else if (bmi >= 25 && bmi <= 29.9) {
+            category = 'Gemuk';
+            colorClass = 'text-orange-600';
+            categoryId = 'category-overweight';
+        } else {
+            category = 'Obesitas';
+            colorClass = 'text-purple-600';
+            categoryId = 'category-obesity';
+        }
+
+        bmiValue.textContent = roundedBmi;
+        bmiCategory.textContent = category;
+        
+        bmiValue.style.color = colorClass.split('-')[1];
+        bmiCategory.style.color = colorClass.split('-')[1];
+
+        Array.from(categoryList.children).forEach(item => {
+            item.classList.remove('ring-2', 'ring-blue-500', 'scale-105');
+            if (item.id === categoryId) {
+                item.classList.add('ring-2', 'ring-blue-500', 'scale-105');
+            }
+        });
+
+        bmiResultSummary.classList.remove('hidden');
+        bmiResultSummary.classList.add('card-enter');
+    });
