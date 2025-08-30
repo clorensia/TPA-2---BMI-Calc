@@ -7,6 +7,52 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    
+    <div class="main-container">
+
+    <!-- Kartu Kalkulator BMI -->
+    <div class="card" style="animation-delay: 0.1s;">
+        <h1 class="card-title">Periksa BMI Anda</h1>
+        <p class="card-subtitle">Masukkan berat dan tinggi badan Anda di bawah ini untuk memeriksa hasil BMI Anda.</p>
+
+        <div style="margin-bottom: 16px;">
+            <label for="weight" class="input-label">Masukkan berat badan Anda (KG)</label>
+            <input type="number" id="weight" class="input-box" placeholder="60">
+            <div id="weight-error" class="error-message hidden">Silakan isi dengan angka minimal 2 digit dan tidak boleh 0.</div>
+        </div>
+        
+        <div style="margin-bottom: 24px;">
+            <label for="height" class="input-label">Dan tinggi badan Anda (CM)</label>
+            <input type="number" id="height" class="input-box" placeholder="167">
+            <div id="height-error" class="error-message hidden">Silakan isi dengan angka minimal 3 digit dan tidak boleh 0.</div>
+        </div>
+
+        <button id="calculate-btn" class="button">Hitung BMI</button>
+        
+    </div>
+
+    <!-- Kartu Kategori BMI dan Hasil -->
+    <div class="card category-card" style="animation-delay: 0.2s;">
+        <div>
+            <h2 class="card-title" style="font-size: 24px; margin-bottom: 16px;">Kategori BMI</h2>
+            <ul class="category-list">
+                <li class="category-item" id="category-underweight">
+                    <span>Kurus (Underweight)</span>
+                    <span class="badge bg-red-badge"> < 18.5 </span>
+                </li>
+                <li class="category-item" id="category-normal">
+                    <span>Normal</span>
+                    <span class="badge bg-green-badge"> 18.5 - 24.9 </span>
+                </li>
+                <li class="category-item" id="category-overweight">
+                    <span>Gemuk (Overweight)</span>
+                    <span class="badge bg-yellow-badge"> 25 - 29.9 </span>
+                </li>
+                <li class="category-item" id="category-obesity">
+                    <span>Obesitas (Obesity)</span>
+                    <span class="badge bg-pink-badge"> 30 atau lebih </span>
+                </li>
+            </ul>
+        </div>
+
 </body>
 </html>
